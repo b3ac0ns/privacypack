@@ -20,9 +20,19 @@ import PrivacyPackResult from "@/components/PrivacyPackResult";
 import { handleDownload, handleShare } from "@/lib/utils";
 import Image from "next/image";
 
+type AppOption = {
+    id: string;
+    name: string;
+};
+
+const categories = [...data.categories].sort((a, b) => a.order - b.order);
+
+const sortByName = (apps: AppOption[]) =>
+    [...apps].sort((a, b) => a.name.localeCompare(b.name));
+
 export default function App() {
     const [pack, setPack] = useState(() => {
-        const initialPack = data.categories.map((category) => ({
+        const initialPack = categories.map((category) => ({
             category: category.name,
             order: category.order,
             mainstream_app_id: category.mainstream_apps[0].id,
@@ -37,8 +47,11 @@ export default function App() {
     const [openKey, setOpenKey] = useState<string | null>(null);
     const touchKeyRef = useRef<string | null>(null);
 
+    const selectedPack = pack.filter((item) => item.private_alternative_id);
+    const canExport = selectedPack.length > 0;
+
     const getTouchTriggerHandlers = (key: string) => ({
-        onPointerDown: (e: React.PointerEvent<HTMLDivElement>) => {
+        onPointerDown: (e: React.PointerEvent<HTMLButtonElement>) => {
             if (e.pointerType === "touch") {
                 // prevent Radix from opening immediately on pointerdown
                 e.preventDefault();
@@ -65,7 +78,7 @@ export default function App() {
 
     const handleSelectApp = (
         categoryName: string,
-        app: { id: string; name: string },
+        app: AppOption,
         type: "mainstream" | "private",
     ) => {
         setPack((prev) =>
@@ -93,7 +106,7 @@ export default function App() {
                 <div className="flex w-full flex-row items-center justify-between md:px-4 md:pt-4">
                     <Link
                         href="/"
-                        className="green-text pr-1 text-2xl font-bold tracking-[-0.09em]"
+                        className="green-text pr-1 text-2xl font-bold"
                     >
                         PrivacyPack
                     </Link>
@@ -108,6 +121,10 @@ export default function App() {
                         </a>
                         <button
                             onClick={async () => {
+                                if (!canExport) {
+                                    return;
+                                }
+
                                 setIsDownloading(true);
                                 try {
                                     await processSelection(handleDownload);
@@ -115,8 +132,14 @@ export default function App() {
                                     setIsDownloading(false);
                                 }
                             }}
+                            disabled={!canExport || isDownloading}
                             id="download-navbar"
-                            className="hidden h-11 cursor-pointer items-center justify-center gap-2 rounded-lg bg-white px-5 text-black transition-all duration-150 hover:bg-white/80 active:bg-white/80 sm:flex"
+                            title={
+                                canExport
+                                    ? "Download PrivacyPack"
+                                    : "Pick at least one private alternative before exporting"
+                            }
+                            className="hidden h-11 cursor-pointer items-center justify-center gap-2 rounded-lg bg-white px-5 text-black transition-all duration-150 hover:bg-white/80 active:bg-white/80 disabled:cursor-not-allowed disabled:opacity-50 sm:flex"
                         >
                             {isDownloading ? (
                                 <Loader2
@@ -136,9 +159,15 @@ export default function App() {
 
                 <div className="mt-16 mb-10 grid grid-cols-1 gap-14 sm:mx-auto md:grid-cols-2 md:gap-20 lg:my-24 lg:gap-28 xl:my-24 xl:grid-cols-3 xl:gap-20 2xl:my-32 2xl:gap-40">
                     {pack.map((item) => {
-                        const category = data.categories.find(
+                        const category = categories.find(
                             (c) => c.name === item.category,
                         );
+                        const mainstreamApps = category
+                            ? sortByName(category.mainstream_apps)
+                            : [];
+                        const privateAlternatives = category
+                            ? sortByName(category.private_alternatives)
+                            : [];
 
                         const mainKey = `${item.category}-main`;
                         const altKey = `${item.category}-alt`;
@@ -159,7 +188,8 @@ export default function App() {
                                         }
                                     >
                                         <DropdownMenuTrigger asChild>
-                                            <div
+                                            <button
+                                                type="button"
                                                 {...getTouchTriggerHandlers(
                                                     mainKey,
                                                 )}
@@ -177,11 +207,11 @@ export default function App() {
                                                         className="h-full w-full rounded-xl object-cover md:rounded-2xl"
                                                     />
                                                 </div>
-                                                <div className="mt-5 max-w-18 text-center text-xs leading-tight font-medium tracking-tight lg:max-w-24 lg:text-base xl:max-w-28 2xl:max-w-40">
+                                                <div className="mt-5 max-w-18 text-center text-xs leading-tight font-medium break-words lg:max-w-24 lg:text-base xl:max-w-28 2xl:max-w-40">
                                                     {item.mainstream_app_name}
                                                 </div>
                                                 <ChevronDown className="mt-1 h-4 w-4" />
-                                            </div>
+                                            </button>
                                         </DropdownMenuTrigger>
 
                                         <DropdownMenuContent
@@ -189,17 +219,10 @@ export default function App() {
                                             side="bottom"
                                             className="rounded-2xl"
                                         >
-                                            {category?.mainstream_apps
-                                                .sort((a, b) =>
-                                                    a.name.localeCompare(
-                                                        b.name,
-                                                    ),
-                                                )
-                                                .map((mainstream_app) => (
+                                            {mainstreamApps.map(
+                                                (mainstream_app) => (
                                                     <DropdownMenuItem
-                                                        key={
-                                                            mainstream_app.name
-                                                        }
+                                                        key={mainstream_app.id}
                                                         onClick={() =>
                                                             handleSelectApp(
                                                                 item.category,
@@ -221,13 +244,14 @@ export default function App() {
                                                                 className="h-auto w-full rounded-sm"
                                                             />
                                                         </div>
-                                                        <span className="text-xs sm:text-sm">
+                                                        <span className="text-xs break-words sm:text-sm">
                                                             {
                                                                 mainstream_app.name
                                                             }
                                                         </span>
                                                     </DropdownMenuItem>
-                                                ))}
+                                                ),
+                                            )}
                                         </DropdownMenuContent>
                                     </DropdownMenu>
 
@@ -240,7 +264,8 @@ export default function App() {
                                         }
                                     >
                                         <DropdownMenuTrigger asChild>
-                                            <div
+                                            <button
+                                                type="button"
                                                 {...getTouchTriggerHandlers(
                                                     altKey,
                                                 )}
@@ -265,25 +290,20 @@ export default function App() {
                                                         />
                                                     )}
                                                 </div>
-                                                <div className="mt-5 max-w-18 text-center text-xs leading-tight font-medium tracking-tight lg:max-w-24 lg:text-base xl:max-w-28 2xl:max-w-40">
+                                                <div className="mt-5 max-w-18 text-center text-xs leading-tight font-medium break-words lg:max-w-24 lg:text-base xl:max-w-28 2xl:max-w-40">
                                                     {item.private_alternative_name ||
                                                         "[Pick]"}
                                                 </div>
                                                 <ChevronDown className="mt-1 h-4 w-4" />
-                                            </div>
+                                            </button>
                                         </DropdownMenuTrigger>
                                         <DropdownMenuContent
                                             align="end"
                                             side="bottom"
                                             className="rounded-2xl"
                                         >
-                                            {category?.private_alternatives
-                                                .sort((a, b) =>
-                                                    a.name.localeCompare(
-                                                        b.name,
-                                                    ),
-                                                )
-                                                .map((private_alternative) => (
+                                            {privateAlternatives.map(
+                                                (private_alternative) => (
                                                     <DropdownMenuItem
                                                         key={
                                                             private_alternative.id
@@ -310,14 +330,15 @@ export default function App() {
                                                                     className="h-auto w-full rounded-sm"
                                                                 />
                                                             </div>
-                                                            <span className="text-xs sm:text-sm">
+                                                            <span className="text-xs break-words sm:text-sm">
                                                                 {
                                                                     private_alternative.name
                                                                 }
                                                             </span>
                                                         </div>
                                                     </DropdownMenuItem>
-                                                ))}
+                                                ),
+                                            )}
                                             <DropdownMenuItem
                                                 onClick={() => {
                                                     handleSelectApp(
@@ -363,6 +384,10 @@ export default function App() {
 
                 <button
                     onClick={async () => {
+                        if (!canExport) {
+                            return;
+                        }
+
                         setIsSharing(true);
                         try {
                             await processSelection(handleShare);
@@ -370,8 +395,14 @@ export default function App() {
                             setIsSharing(false);
                         }
                     }}
+                    disabled={!canExport || isSharing}
                     id="share-mobile"
-                    className="mt-8 flex h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-white text-black transition-all duration-150 active:bg-white/80 sm:hidden"
+                    title={
+                        canExport
+                            ? "Share PrivacyPack"
+                            : "Pick at least one private alternative before exporting"
+                    }
+                    className="mt-8 flex h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-white text-black transition-all duration-150 active:bg-white/80 disabled:cursor-not-allowed disabled:opacity-50 sm:hidden"
                 >
                     {isSharing ? (
                         <Loader2
@@ -388,6 +419,10 @@ export default function App() {
                 </button>
                 <button
                     onClick={async () => {
+                        if (!canExport) {
+                            return;
+                        }
+
                         setIsDownloading(true);
                         try {
                             await processSelection(handleDownload);
@@ -395,8 +430,14 @@ export default function App() {
                             setIsDownloading(false);
                         }
                     }}
+                    disabled={!canExport || isDownloading}
                     id="download-mobile"
-                    className="mt-3 mb-8 flex h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-[#525252] text-white transition-all duration-150 active:bg-[#444444] sm:hidden"
+                    title={
+                        canExport
+                            ? "Download PrivacyPack"
+                            : "Pick at least one private alternative before exporting"
+                    }
+                    className="mt-3 mb-8 flex h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-[#525252] text-white transition-all duration-150 active:bg-[#444444] disabled:cursor-not-allowed disabled:opacity-50 sm:hidden"
                 >
                     {isDownloading ? (
                         <Loader2
@@ -413,9 +454,7 @@ export default function App() {
                 </button>
             </div>
 
-            <PrivacyPackResult
-                pack={pack.filter((item) => item.private_alternative_id)}
-            />
+            <PrivacyPackResult pack={selectedPack} />
         </>
     );
 }

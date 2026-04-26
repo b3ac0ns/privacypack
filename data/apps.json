@@ -16,7 +16,7 @@
                 { "id": "tuta_mail", "name": "Tuta Mail" },
                 { "id": "posteo", "name": "Posteo" },
                 { "id": "migadu", "name": "Migadu" },
-		        { "id": "startmail", "name": "StartMail" },
+                { "id": "startmail", "name": "StartMail" },
                 { "id": "runbox", "name": "Runbox" },
                 { "id": "disroot_webmail", "name": "Disroot webmail" },
                 { "id": "murena_workspace", "name": "Murena Email" }
@@ -32,7 +32,7 @@
                 { "id": "dropbox", "name": "Dropbox" }
             ],
             "private_alternatives": [
-				{ "id": "jottacloud", "name": "Jottacloud" },
+                { "id": "jottacloud", "name": "Jottacloud" },
                 { "id": "ente_photos", "name": "Ente Photos" },
                 { "id": "proton_drive", "name": "Proton Drive" },
                 { "id": "immich", "name": "Immich" },
@@ -54,6 +54,7 @@
                 { "id": "kagi", "name": "Kagi" },
                 { "id": "brave_search", "name": "Brave Search" },
                 { "id": "duckduckgo", "name": "DuckDuckGo" },
+                { "id": "prieco", "name": "PriEco" },
                 { "id": "startpage", "name": "Startpage" },
                 { "id": "searxng", "name": "SearXNG" },
                 { "id": "mojeek", "name": "Mojeek" },
@@ -98,7 +99,7 @@
                 { "id": "telegram", "name": "Telegram" },
                 { "id": "imessage", "name": "iMessage" },
                 { "id": "google_messages", "name": "Google Messages" },
-				{ "id": "google_chat", "name": "Google Chat" }
+                { "id": "google_chat", "name": "Google Chat" }
             ],
             "private_alternatives": [
                 { "id": "signal", "name": "Signal" },
@@ -125,6 +126,7 @@
                 { "id": "standard_notes", "name": "Standard Notes" },
                 { "id": "memos", "name": "Memos" },
                 { "id": "notesnook", "name": "Notesnook" },
+                { "id": "signal", "name": "Signal Note to Self" },
                 { "id": "obsidian", "name": "Obsidian" },
                 { "id": "logseq", "name": "Logseq" },
                 { "id": "anytype", "name": "Anytype" },
@@ -148,6 +150,7 @@
                 { "id": "mailbox", "name": "mailbox" },
                 { "id": "nextcloud", "name": "Nextcloud" },
                 { "id": "proton_drive", "name": "Proton Drive" },
+                { "id": "tresorit", "name": "Tresorit" },
                 { "id": "filen", "name": "Filen" },
                 { "id": "ik-kdrive", "name": "Infomaniak kDrive" },
                 { "id": "fileverse", "name": "Fileverse" },
@@ -228,6 +231,7 @@
                 { "id": "app_store", "name": "App Store" }
             ],
             "private_alternatives": [
+                { "id": "app_store", "name": "App Store" },
                 { "id": "accrescent", "name": "Accrescent" },
                 { "id": "f_droid", "name": "F-Droid" },
                 { "id": "aurora_store", "name": "Aurora Store" },
@@ -255,8 +259,8 @@
                 { "id": "urnetwork", "name": "URnetwork dVPN" },
                 { "id": "duckduckgo", "name": "DuckDuckGo VPN" },
                 { "id": "nymvpn", "name": "NymVPN" },
-				{ "id": "tor_vpn", "name": "Tor VPN" },
-				{ "id": "pia_vpn", "name": "PIA VPN" }
+                { "id": "tor_vpn", "name": "Tor VPN" },
+                { "id": "pia_vpn", "name": "PIA VPN" }
             ]
         },
         {
@@ -282,7 +286,8 @@
                 { "id": "kagi_assistant", "name": "Kagi Assistant" },
                 { "id": "ik-euria", "name": "Euria" },
                 { "id": "brave_leo", "name": "Brave Leo" },
-                { "id": "mistralai_lechat", "name": "LeChat" }
+                { "id": "mistralai_lechat", "name": "LeChat" },
+                { "id": "ensu", "name": "Ensu" }
             ]
         },
         {
@@ -347,13 +352,81 @@
             "private_alternatives": [
                 { "id": "matrix", "name": "Matrix" },
                 { "id": "zulip", "name": "Zulip" },
-				{ "id": "stoat", "name": "Stoat" },
-				{ "id": "fluxer", "name": "Fluxer" }
+                { "id": "discourse", "name": "Discourse" },
+                { "id": "gamevox", "name": "GameVox" },
+                { "id": "stoat", "name": "Stoat" },
+                { "id": "fluxer", "name": "Fluxer" }
+            ]
+        },
+        {
+            "name": "Social Media",
+            "order": 18,
+            "mainstream_apps": [
+                { "id": "facebook", "name": "Facebook" },
+                { "id": "instagram", "name": "Instagram" },
+                { "id": "x", "name": "𝕏" },
+                { "id": "reddit", "name": "Reddit" },
+                { "id": "youtube", "name": "YouTube" }
+            ],
+            "private_alternatives": [
+                { "id": "minds", "name": "Minds" },
+                { "id": "pixelfed", "name": "Pixelfed" },
+                { "id": "mastodon", "name": "Mastodon" },
+                { "id": "nostr", "name": "Nostr" },
+                { "id": "lemmy", "name": "Lemmy" },
+                { "id": "peertube", "name": "PeerTube" }
+            ]
+        },
+        {
+            "name": "Video Conferencing",
+            "order": 19,
+            "mainstream_apps": [
+                { "id": "zoom", "name": "Zoom" },
+                { "id": "google_meet", "name": "Google Meet" },
+                { "id": "microsoft_teams", "name": "Microsoft Teams" },
+                { "id": "webex", "name": "Webex" }
+            ],
+            "private_alternatives": [
+                { "id": "brave_talk", "name": "Brave Talk" },
+                { "id": "proton_meet", "name": "Proton Meet" },
+                { "id": "jitsi", "name": "Jitsi" },
+                { "id": "nextcloud_talk", "name": "Nextcloud Talk" }
+            ]
+        },
+        {
+            "name": "Payments",
+            "order": 20,
+            "mainstream_apps": [
+                { "id": "paypal", "name": "PayPal" },
+                { "id": "venmo", "name": "Venmo" },
+                { "id": "cash_app", "name": "Cash App" },
+                { "id": "apple_pay", "name": "Apple Pay" },
+                { "id": "google_pay", "name": "Google Pay" }
+            ],
+            "private_alternatives": [
+                { "id": "cash", "name": "Cash" },
+                { "id": "monero", "name": "Monero" },
+                { "id": "zcash", "name": "Zcash" }
+            ]
+        },
+        {
+            "name": "Crypto Wallets",
+            "order": 21,
+            "mainstream_apps": [
+                { "id": "coinbase_wallet", "name": "Coinbase Wallet" },
+                { "id": "metamask", "name": "MetaMask" },
+                { "id": "phantom", "name": "Phantom" },
+                { "id": "trust_wallet", "name": "Trust Wallet" }
+            ],
+            "private_alternatives": [
+                { "id": "brave_wallet", "name": "Brave Wallet" },
+                { "id": "cake_wallet", "name": "Cake Wallet" },
+                { "id": "zodl", "name": "ZODL" }
             ]
         },
         {
             "name": "DNS",
-            "order": 18,
+            "order": 22,
             "mainstream_apps": [
                 { "id": "isp_dns", "name": "ISP DNS" },
                 { "id": "google_search", "name": "Google DNS" },
@@ -371,7 +444,7 @@
         },
         {
             "name": "Computer OS",
-            "order": 19,
+            "order": 23,
             "mainstream_apps": [
                 { "id": "windows", "name": "Windows" },
                 { "id": "macos", "name": "macOS" }
@@ -389,13 +462,13 @@
                 { "id": "openmandriva", "name": "OpenMandriva" },
                 { "id": "nixos", "name": "NixOS" },
                 { "id": "tiger_os", "name": "Tiger OS" },
-				{ "id": "opensuse", "name": "OpenSUSE" },
-				{ "id":"zorin_os", "name": "Zorin OS" }
+                { "id": "opensuse", "name": "OpenSUSE" },
+                { "id": "zorin_os", "name": "Zorin OS" }
             ]
         },
         {
             "name": "Phone OS",
-            "order": 20,
+            "order": 24,
             "mainstream_apps": [
                 { "id": "android", "name": "Android" },
                 { "id": "ios", "name": "iOS" }
@@ -411,28 +484,28 @@
         },
         {
             "name": "Entertainment",
-            "order": 21,
+            "order": 25,
             "mainstream_apps": [
                 { "id": "plex", "name": "Plex" },
                 { "id": "netflix", "name": "Netflix" },
-				        { "id": "hulu", "name": "Hulu" },
-				        { "id": "hbo_max", "name": "HBO Max" },
-				        { "id": "prime_video", "name": "Prime Video" },
-				        { "id": "paramount_plus", "name": "Paramount+" },
-				        { "id": "disney_plus", "name": "Disney+" },
-				        { "id": "youtube", "name": "Youtube" }
+                { "id": "hulu", "name": "Hulu" },
+                { "id": "hbo_max", "name": "HBO Max" },
+                { "id": "prime_video", "name": "Prime Video" },
+                { "id": "paramount_plus", "name": "Paramount+" },
+                { "id": "disney_plus", "name": "Disney+" },
+                { "id": "youtube", "name": "Youtube" }
             ],
             "private_alternatives": [
                 { "id": "jellyfin", "name": "Jellyfin" },
-				        { "id": "newpipe", "name": "Newpipe" },
-				        { "id": "grayjay", "name": "Grayjay" },
+                { "id": "newpipe", "name": "Newpipe" },
+                { "id": "grayjay", "name": "Grayjay" },
                 { "id": "stremio", "name": "Stremio" },
-				        { "id": "libretube", "name": "Libretube" }
+                { "id": "libretube", "name": "Libretube" }
             ]
-		    },
-		    {
+        },
+        {
             "name": "Office Suite",
-            "order": 22,
+            "order": 26,
             "mainstream_apps": [
                 { "id": "Microsoft_365", "name": "Microsoft 365" },
                 { "id": "Google_Workspace", "name": "Google Workspace" },
@@ -448,8 +521,8 @@
                 { "id": "OnlyOffice", "name": "OnlyOffice" },
                 { "id": "OpenOffice", "name": "OpenOffice" },
                 { "id": "CryptPad", "name": "CryptPad" },
-                { "id": "fileverse", "name": "Fileverse dDocs/dSheets"}
-             ]
+                { "id": "fileverse", "name": "Fileverse dDocs/dSheets" }
+            ]
         }
     ]
 }
