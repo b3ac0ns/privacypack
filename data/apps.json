@@ -506,7 +506,8 @@
                 { "id": "calyx_os", "name": "CalyxOS" },
                 { "id": "lineage_os", "name": "LineageOS" },
                 { "id": "e_os", "name": "/e/OS" },
-				{ "id": "pure_os", "name": "PureOS"}
+				{ "id": "pure_os", "name": "PureOS"},
+				{ "id": "ubuntu_touch", "name": "UbuntuTouch"}
             ]
         },
         {
