@@ -506,7 +506,7 @@
                 { "id": "calyx_os", "name": "CalyxOS" },
                 { "id": "lineage_os", "name": "LineageOS" },
                 { "id": "e_os", "name": "/e/OS" },
-				{ "id": "evolution_x", "name": "Evolution X"}
+				{ "id": "pure_os", "name": "PureOS"}
             ]
         },
         {
